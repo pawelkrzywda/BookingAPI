@@ -35,4 +35,8 @@ public class PatientService {
         Optional<Patient> patient = patientDao.findById(id);
         patientDao.delete(patient.orElseThrow(PatientNotFoundException::new));
     }
+
+    public Patient findPatient(long id) throws PatientNotFoundException {
+        return patientDao.findById(id).orElseThrow(PatientNotFoundException::new);
+    }
 }
