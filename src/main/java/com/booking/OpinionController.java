@@ -42,7 +42,7 @@ public class OpinionController {
         return ResponseEntity.ok(savedOpinion);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<OpinionDto> deleteOpinion(@PathVariable long id) throws OpinionNotFoundException {
         opinionService.deleteOpinion(id);
         return ResponseEntity.ok().build();

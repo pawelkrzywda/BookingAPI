@@ -41,7 +41,7 @@ public class PatientController {
         return ResponseEntity.ok(savedPatient);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<PatientDto> deletePatient(@PathVariable long id) throws PatientNotFoundException {
         patientService.deletePatient(id);
         return ResponseEntity.ok().build();

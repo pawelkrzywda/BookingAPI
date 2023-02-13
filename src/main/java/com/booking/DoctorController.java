@@ -40,7 +40,7 @@ public class DoctorController {
         return ResponseEntity.ok(savedDoctor);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<DoctorDto> deleteDoctor(@PathVariable long id) throws DoctorNotFoundException {
         doctorService.deleteDoctor(id);
         return ResponseEntity.ok().build();

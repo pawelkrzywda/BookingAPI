@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/v1/patients")
+@RequestMapping("/v1/visits")
 public class VisitController {
     private final VisitService visitService;
     private final VisitMapper visitMapper;
@@ -43,7 +43,7 @@ public class VisitController {
         return ResponseEntity.ok(savedVisit);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<VisitDto> deleteVisit(@PathVariable long id) throws VisitNotFoundException {
         visitService.deleteVisit(id);
         return ResponseEntity.ok().build();
