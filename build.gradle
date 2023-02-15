@@ -20,7 +20,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.booking'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
 	mavenCentral()
@@ -48,4 +48,7 @@ dependencies {
 
 	testCompileOnly('org.projectlombok:lombok:1.18.24')
 	testAnnotationProcessor('org.projectlombok:lombok:1.18.24')
+
+	implementation group: 'com.mashape.unirest', name: 'unirest-java', version: '1.3.1'
 }
+targetCompatibility = JavaVersion.VERSION_11
