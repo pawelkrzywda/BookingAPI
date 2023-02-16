@@ -17,8 +17,10 @@ import java.util.List;
 @CrossOrigin("*")
 public class PublicHolidaysController {
 
+    private final HolidaysFacade holidaysFacade;
+
     @GetMapping("publicholidays")
     public ResponseEntity<List<HolidayDto>> getPublicHolidays() {
-        return ResponseEntity.ok(HolidaysFacade.fetchPublicHolidays());
+        return ResponseEntity.ok(holidaysFacade.fetchPublicHolidays());
     }
 }
