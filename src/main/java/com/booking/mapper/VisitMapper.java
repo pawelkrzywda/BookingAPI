@@ -9,6 +9,9 @@ import com.booking.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class VisitMapper {
@@ -33,5 +36,11 @@ public class VisitMapper {
                 .patientId(visit.getPatient().getId())
                 .doctorId(visit.getDoctor().getId())
                 .build();
+    }
+
+    public List<VisitDto> mapToVisitDtoList(final List<Visit> visits){
+        return visits.stream()
+                .map(this::mapToVisitDto)
+                .collect(Collectors.toList());
     }
 }

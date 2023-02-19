@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -32,6 +33,12 @@ public class VisitController {
         Visit visit = visitService.getVisit(id);
         VisitDto visitDto = visitMapper.mapToVisitDto(visit);
         return ResponseEntity.ok(visitDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<VisitDto>> getVisits() {
+        List<Visit> visits = visitService.getAllVisits();
+        return ResponseEntity.ok(visitMapper.mapToVisitDtoList(visits));
     }
 
     @PutMapping

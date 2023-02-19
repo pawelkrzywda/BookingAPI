@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -80,5 +82,37 @@ public class VisitMapperTest {
         assertEquals(visit.getTime(), visitDto.getTime());
         assertEquals(visit.getPatient().getId(), visitDto.getPatientId());
         assertEquals(visit.getDoctor().getId(), visitDto.getDoctorId());
+    }
+
+    @Test
+    public void shouldMapToVisitDtoList(){
+        //Given
+        Patient patient = generatePatient();
+        Doctor doctor = generateDoctor();
+        Visit visit1 = Visit.builder()
+                .date(LocalDate.of(2023, 10, 5))
+                .time(LocalTime.of(15, 00))
+                .patient(patient)
+                .doctor(doctor)
+                .build();
+
+        Visit visit2 = Visit.builder()
+                .date(LocalDate.of(2023, 11, 7))
+                .time(LocalTime.of(16, 30))
+                .patient(patient)
+                .doctor(doctor)
+                .build();
+
+        List<Visit> visitList = new ArrayList<>();
+        visitList.add(visit1);
+        visitList.add(visit2);
+
+        //When
+        List<VisitDto> visitDtos = visitMapper.mapToVisitDtoList(visitList);
+
+        //Then
+        assertEquals(2, visitDtos.size());
+        assertEquals(LocalDate.of(2023,10,5), visitDtos.get(0).getDate());
+        assertEquals(LocalTime.of(16,30), visitDtos.get(1).getTime());
     }
 }

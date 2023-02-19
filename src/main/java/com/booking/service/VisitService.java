@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,10 @@ public class VisitService {
 
     public Visit getVisit(Long id) throws VisitNotFoundException {
         return visitDao.findById(id).orElseThrow(VisitNotFoundException::new);
+    }
+
+    public List<Visit> getAllVisits(){
+        return visitDao.findAll();
     }
 
     public Visit saveVisit(Visit visit){
