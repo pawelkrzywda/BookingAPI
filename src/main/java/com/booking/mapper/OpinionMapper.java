@@ -9,6 +9,9 @@ import com.booking.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class OpinionMapper {
@@ -33,5 +36,11 @@ public class OpinionMapper {
                 .patientId(opinion.getPatient().getId())
                 .doctorId(opinion.getDoctor().getId())
                 .build();
+    }
+
+    public List<OpinionDto> mapToOpinionDtoList(final List<Opinion> opinions){
+        return opinions.stream()
+                .map(this::mapToOpinionDto)
+                .collect(Collectors.toList());
     }
 }

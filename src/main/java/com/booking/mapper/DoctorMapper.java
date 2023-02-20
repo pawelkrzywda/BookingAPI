@@ -3,6 +3,8 @@ package com.booking.mapper;
 import com.booking.domain.DoctorDto;
 import com.booking.entity.Doctor;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DoctorMapper {
@@ -24,5 +26,11 @@ public class DoctorMapper {
                 .specialization(doctor.getSpecialization())
                 .rating(doctor.getRating())
                 .build();
+    }
+
+    public List<DoctorDto> mapToDoctorDtoList(final List<Doctor> doctors){
+        return doctors.stream()
+                .map(this::mapToDoctorDto)
+                .collect(Collectors.toList());
     }
 }

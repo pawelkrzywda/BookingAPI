@@ -13,4 +13,6 @@ public interface OpinionDao extends CrudRepository<Opinion, Long> {
 
     @Override
     List<Opinion> findAll();
+
+    List<Opinion> findByDoctorId(Long doctorId);
 }

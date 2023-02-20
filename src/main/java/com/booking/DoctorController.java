@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,6 +31,12 @@ public class DoctorController {
         Doctor doctor = doctorService.getDoctor(id);
         DoctorDto doctorDto = doctorMapper.mapToDoctorDto(doctor);
         return ResponseEntity.ok(doctorDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DoctorDto>> getDoctors() {
+        List<Doctor> doctors = doctorService.getAllDoctors();
+        return ResponseEntity.ok(doctorMapper.mapToDoctorDtoList(doctors));
     }
 
     @PutMapping

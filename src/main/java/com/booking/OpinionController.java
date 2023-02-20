@@ -1,6 +1,8 @@
 package com.booking;
 
+import com.booking.domain.DoctorDto;
 import com.booking.domain.OpinionDto;
+import com.booking.entity.Doctor;
 import com.booking.entity.Opinion;
 import com.booking.exception.DoctorNotFoundException;
 import com.booking.exception.OpinionNotFoundException;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -32,6 +35,12 @@ public class OpinionController {
         Opinion opinion = opinionService.getOpinion(id);
         OpinionDto opinionDto = opinionMapper.mapToOpinionDto(opinion);
         return ResponseEntity.ok(opinionDto);
+    }
+
+    @GetMapping(value = "/doctor/{id}")
+    public ResponseEntity<List<OpinionDto>> getOpinions(@PathVariable long doctorId) throws DoctorNotFoundException {
+        List<Opinion> opinions = opinionService.getOpinionsForDoctor(doctorId);
+        return ResponseEntity.ok(opinionMapper.mapToOpinionDtoList(opinions));
     }
 
     @PutMapping

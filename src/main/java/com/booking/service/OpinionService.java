@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,10 @@ public class OpinionService {
 
     public Opinion getOpinion(Long id) throws OpinionNotFoundException {
         return opinionDao.findById(id).orElseThrow(OpinionNotFoundException::new);
+    }
+
+    public List<Opinion> getOpinionsForDoctor(Long doctorId){
+        return opinionDao.findByDoctorId(doctorId);
     }
 
     public Opinion saveOpinion(Opinion opinion){

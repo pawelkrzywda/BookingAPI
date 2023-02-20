@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,10 @@ public class DoctorService {
 
     public Doctor getDoctor(Long id) throws DoctorNotFoundException {
         return doctorDao.findById(id).orElseThrow(DoctorNotFoundException::new);
+    }
+
+    public List<Doctor> getAllDoctors(){
+        return doctorDao.findAll();
     }
 
     public Doctor saveDoctor(Doctor doctor){
