@@ -17,13 +17,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class VisitService {
-
     private final VisitMapper visitMapper;
     private final VisitDao visitDao;
+    private final VisitLogService visitLogService;
 
     public void createVisit(VisitDto visitDto) throws NoSuchAlgorithmException, IOException, PatientNotFoundException, DoctorNotFoundException {
         Visit visit = visitMapper.mapToVisit(visitDto);
         visitDao.save(visit);
+        visitLogService.createVisitLog(visit);
     }
 
     public Visit getVisit(Long id) throws VisitNotFoundException {
@@ -35,6 +36,7 @@ public class VisitService {
     }
 
     public Visit saveVisit(Visit visit){
+        visitLogService.createVisitLog(visit);
         return visitDao.save(visit);
     }
 

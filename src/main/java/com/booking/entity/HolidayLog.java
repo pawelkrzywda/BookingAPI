@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,12 +14,18 @@ import java.time.LocalDate;
 @Setter
 @Builder
 @Entity
-public class Holiday {
+public class HolidayLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
     @NonNull
+    private Long holidayId;
+
+    @NonNull
     private LocalDate date;
+
+    @NonNull
+    private LocalDateTime timeOfChange;
 }

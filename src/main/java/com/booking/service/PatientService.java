@@ -16,11 +16,12 @@ import java.util.Optional;
 public class PatientService {
     private final PatientMapper patientMapper;
     private final PatientDao patientDao;
+    private final PatientLogService patientLogService;
 
     public void createPatient(PatientDto patientDto) throws NoSuchAlgorithmException, IOException {
         Patient patient = patientMapper.mapToPatient(patientDto);
-
         patientDao.save(patient);
+        patientLogService.createPatientLog(patient);
     }
 
     public Patient getPatient(Long id) throws PatientNotFoundException {
@@ -28,6 +29,7 @@ public class PatientService {
     }
 
     public Patient savePatient(Patient patient){
+        patientLogService.createPatientLog(patient);
         return patientDao.save(patient);
     }
 

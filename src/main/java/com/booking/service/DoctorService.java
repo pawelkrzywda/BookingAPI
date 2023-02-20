@@ -15,13 +15,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DoctorService {
-
     private final DoctorMapper doctorMapper;
     private final DoctorDao doctorDao;
+    private final DoctorLogService doctorLogService;
 
     public void createDoctor(DoctorDto doctorDto) throws NoSuchAlgorithmException, IOException {
         Doctor doctor = doctorMapper.mapToDoctor(doctorDto);
         doctorDao.save(doctor);
+        doctorLogService.createDoctorLog(doctor);
     }
 
     public Doctor getDoctor(Long id) throws DoctorNotFoundException {
@@ -33,6 +34,7 @@ public class DoctorService {
     }
 
     public Doctor saveDoctor(Doctor doctor){
+        doctorLogService.createDoctorLog(doctor);
         return doctorDao.save(doctor);
     }
 

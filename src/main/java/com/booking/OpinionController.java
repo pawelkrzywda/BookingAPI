@@ -1,8 +1,6 @@
 package com.booking;
 
-import com.booking.domain.DoctorDto;
 import com.booking.domain.OpinionDto;
-import com.booking.entity.Doctor;
 import com.booking.entity.Opinion;
 import com.booking.exception.DoctorNotFoundException;
 import com.booking.exception.OpinionNotFoundException;
@@ -37,7 +35,7 @@ public class OpinionController {
         return ResponseEntity.ok(opinionDto);
     }
 
-    @GetMapping(value = "/doctor/{id}")
+    @GetMapping(value = "/doctor/{doctorId}")
     public ResponseEntity<List<OpinionDto>> getOpinions(@PathVariable long doctorId) throws DoctorNotFoundException {
         List<Opinion> opinions = opinionService.getOpinionsForDoctor(doctorId);
         return ResponseEntity.ok(opinionMapper.mapToOpinionDtoList(opinions));

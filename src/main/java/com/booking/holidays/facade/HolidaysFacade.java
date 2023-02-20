@@ -22,4 +22,8 @@ public class HolidaysFacade {
         List<Holiday> holidays = holidayMapper.mapToHoliday(holidayService.fetchPublicHolidays());
         return holidayMapper.mapToHolidayDto(holidays);
     }
+
+    public void savePublicHolidays(){
+        holidayService.createPublicHolidays(holidayService.fetchPublicHolidays());
+    }
 }

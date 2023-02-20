@@ -3,6 +3,7 @@ package com.booking.entity;
 import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @AllArgsConstructor
@@ -11,11 +12,14 @@ import java.time.LocalTime;
 @Setter
 @Builder
 @Entity
-public class Visit {
+public class VisitLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
+    @NonNull
+    private Long visitId;
 
     @NonNull
     private LocalDate date;
@@ -24,12 +28,11 @@ public class Visit {
     private LocalTime time;
 
     @NonNull
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
+    private Long patientId;
 
     @NonNull
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    private Long doctorId;
+
+    @NonNull
+    private LocalDateTime timeOfChange;
 }

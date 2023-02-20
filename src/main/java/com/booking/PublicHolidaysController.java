@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/trello")
+@RequestMapping("v1/holidays")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class PublicHolidaysController {
@@ -20,6 +20,7 @@ public class PublicHolidaysController {
 
     @GetMapping("publicholidays")
     public ResponseEntity<List<HolidayDto>> getPublicHolidays() {
+        holidaysFacade.savePublicHolidays();
         return ResponseEntity.ok(holidaysFacade.fetchPublicHolidays());
     }
 }

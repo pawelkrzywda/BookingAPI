@@ -1,11 +1,13 @@
 package com.booking.service;
 
 import com.booking.domain.OpinionDto;
+import com.booking.entity.Doctor;
 import com.booking.entity.Opinion;
 import com.booking.exception.DoctorNotFoundException;
 import com.booking.exception.OpinionNotFoundException;
 import com.booking.exception.PatientNotFoundException;
 import com.booking.mapper.OpinionMapper;
+import com.booking.repository.DoctorDao;
 import com.booking.repository.OpinionDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,29 @@ import java.util.Optional;
 public class OpinionService {
     private final OpinionMapper opinionMapper;
     private final OpinionDao opinionDao;
+    private final OpinionLogService opinionLogService;
+    private final DoctorDao doctorDao;
 
     public void createOpinion(OpinionDto opinionDto) throws NoSuchAlgorithmException, IOException, PatientNotFoundException, DoctorNotFoundException {
         Opinion opinion = opinionMapper.mapToOpinion(opinionDto);
         opinionDao.save(opinion);
+        opinionLogService.createOpinionLog(opinion);
+
+        //updating rating for Doctor entity
+        List<Opinion> opinions = opinionDao.findByDoctorId(opinion.getDoctor().getId());
+        double newRating=0;
+        for(int i=0; i<opinions.size(); i++){
+            newRating = newRating + opinions.get(i).getRating();
+        }
+        if(opinions.size()!=0){
+            newRating = newRating/opinions.size();
+        }
+        Optional<Doctor> optDoctor = doctorDao.findById(opinion.getDoctor().getId());
+        if(optDoctor.isPresent()){
+            Doctor doctor = optDoctor.get();
+            doctor.setRating(newRating);
+            doctorDao.save(doctor);
+        }
     }
 
     public Opinion getOpinion(Long id) throws OpinionNotFoundException {
@@ -34,6 +55,7 @@ public class OpinionService {
     }
 
     public Opinion saveOpinion(Opinion opinion){
+        opinionLogService.createOpinionLog(opinion);
         return opinionDao.save(opinion);
     }
 
